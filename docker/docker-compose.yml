@@ -52,8 +52,9 @@ services:
     user: root
     volumes:
       - ../:/workspace
-      # Ivy cache survives restarts → Maven JARs only download once
-      - ivy-cache:/home/jovyan/.ivy2
+      # Ivy + pip caches survive restarts (root user → /root/)
+      - ivy-cache:/root/.ivy2
+      - pip-cache:/root/.cache/pip
       - ipython-cache:/home/jovyan/.cache
     working_dir: /workspace
     command:
@@ -61,13 +62,10 @@ services:
       - -c
       - |
         set -e
-        export PATH="/home/jovyan/.local/bin:/opt/conda/bin:$$PATH"
-
-        # Fix volume ownership (Docker named volumes are created as root)
-        chown -R 1000:100 /home/jovyan/.ivy2 /home/jovyan/.cache 2>/dev/null || true
+        export PATH="/root/.local/bin:/opt/conda/bin:$$PATH"
 
         echo ">> Installing Python deps (cached after first run)…"
-        pip install --quiet --user \
+        pip install --quiet \
           delta-spark==3.2.0 \
           jupytext==1.16.4 \
           faker==30.3.0
@@ -89,4 +87,5 @@ services:
 volumes:
   minio-data:
   ivy-cache:
+  pip-cache:
   ipython-cache:
