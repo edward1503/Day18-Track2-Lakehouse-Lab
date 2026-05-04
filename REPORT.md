@@ -1,6 +1,7 @@
 # Day 18 Lab — Báo Cáo Kết Quả (Spark/Docker Path)
 
-**Sinh viên:** _[Điền tên]_  
+**Sinh viên:** _Nguyễn Đôn Đức_
+**ID**: 2A202600145  
 **Ngày thực hiện:** 2026-05-04  
 **Stack:** PySpark 3.5.0 + Delta Lake 3.2.0 + MinIO (Docker)  
 **Engine:** Apache-Spark/3.5.0 Delta-Lake/3.2.0
@@ -304,4 +305,28 @@ gold/
 2. `ivy-cache:/root/.ivy2` — persistent Maven JAR cache
 3. `PYTHONPATH` includes Spark python path for `docker exec` compatibility
 4. `SPARK_HOME` explicitly set
-5. `$$` escaping for Docker Compose variable interpolation in bash scripts
+
+---
+
+## Screenshots Evidence
+
+### NB1 — Delta Lake Basics
+![NB1 - Delta Table & History](screenshots/01-1.png)
+![NB1 - Schema Enforcement](screenshots/01-2.png)
+![NB1 - Schema Evolution](screenshots/01-3.png)
+![NB1 - MinIO Check](screenshots/01-4.png)
+
+### NB2 — OPTIMIZE + ZORDER
+![NB2 - Small Files Generation](screenshots/02-1.png)
+![NB2 - Benchmark Before/After](screenshots/02-2.png)
+![NB2 - File Count Comparison](screenshots/02-3.png)
+
+### NB3 — Time Travel + MERGE
+![NB3 - MERGE Upsert Performance](screenshots/03-1.png)
+![NB3 - DESCRIBE HISTORY Audit](screenshots/03-2.png)
+![NB3 - Time Travel Queries](screenshots/03-3.png)
+![NB3 - RESTORE Verification](screenshots/03-4.png)
+
+### NB4 — Medallion Pipeline
+![NB4 - Silver Dedup Results](screenshots/04-1.png)
+![NB4 - Gold Metrics Aggregation](screenshots/04-2.png)
